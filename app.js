@@ -7,5 +7,7 @@ const server = http.createServer(routes.handler);
     //process.exit();                                 //hardcoded to quit the process(wont be using as we dont wanna quit our page)
     
 //});
+const PORT = process.env.PORT || 3000;
+server.listen(PORT);
 
-server.listen(3000);    //for opening the page on port number 3000
+//server.listen(3000);    //for opening the page on port number 3000
