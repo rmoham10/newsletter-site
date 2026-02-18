@@ -242,7 +242,7 @@ const requestHandler = (req, res) =>{
         const category = query.get('category') || 'business';
 
         const apiKey = process.env.NEWS_API_KEY;
-        const newsUrl = `https://newsapi.org/v2/top-headlines?language=en&category=${category}&pageSize=5&apiKey=${apiKey}`;
+        const newsUrl = `https://newsapi.org/v2/top-headlines?language=en&category=${category}&pageSize=10&apiKey=${apiKey}`;
 
         fetch(newsUrl)
             .then(response => response.json())
