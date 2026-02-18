@@ -1,5 +1,5 @@
 const fs = require('fs');
-
+const fetch = require('node-fetch');    
 const requestHandler = (req, res) =>{
     const url = req.url.split('?')[0];
     const method = req.method;
@@ -10,7 +10,7 @@ const requestHandler = (req, res) =>{
         res.write('<div style="position: absolute; top: 10px; right: 10px; display: flex; gap: 10px;">');
         res.write('<a href="/info"><button>About</button></a>');
         res.write('<a href="/info"><button>Region</button></a>');
-        res.write('<a href="/info"><button>Headlines</button></a>');
+        res.write('<a href="/headlines"><button>Headlines</button></a>');
         res.write('<a href="/info"><button>Sports</button></a>');
         res.write('</div>');
         res.write('</body');     
@@ -31,7 +31,7 @@ const requestHandler = (req, res) =>{
         res.write('<div style="position: absolute; top: 10px; right: 10px; display: flex; gap: 10px;">');
         res.write('<a href="/info"><button>About</button></a>');
         res.write('<a href="/info"><button>Region</button></a>');
-        res.write('<a href="/info"><button>Headlines</button></a>');
+        res.write('<a href="/headlines"><button>Headlines</button></a>');
         res.write('<a href="/info"><button>Sports</button></a>');
         res.write('</div>');
         res.write('</body>');
@@ -39,7 +39,44 @@ const requestHandler = (req, res) =>{
         return res.end(); 
     }
 
+    if (url === '/headlines' && method === 'GET') {
+        const apiKey = process.env.NEWS_API_KEY; // keep your key in env vars
+        const newsUrl = `https://newsapi.org/v2/top-headlines?language=en&pageSize=5&apiKey=${apiKey}`;
 
+        fetch(newsUrl)
+            .then(response => response.json())
+            .then(data => {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'text/html');
+                res.write('<html>');
+                res.write('<head><title>Headlines</title></head>');
+                res.write('<body>');
+                res.write('<h1>Latest Headlines</h1>');
+                res.write('<ul>');
+
+                data.articles.forEach(article => {
+                    res.write(`<li><a href="${article.url}" target="_blank">${article.title}</a></li>`);
+                });
+
+                res.write('</ul>');
+                res.write('<button onclick="window.history.back()">Back</button>');
+
+                // Top-right menu
+                res.write('<div style="position: absolute; top: 10px; right: 10px; display: flex; gap: 10px;">');
+                res.write('<a href="/info"><button>About</button></a>');
+                res.write('<a href="/info"><button>Region</button></a>');
+                res.write('<a href="/headlines"><button>Headlines</button></a>');
+                res.write('<a href="/info"><button>Sports</button></a>');
+                res.write('</div>');
+
+                res.write('</body></html>');
+                res.end();
+            })
+            .catch(err => {
+                res.statusCode = 500;
+                res.end('Error fetching news: ' + err.message);
+            });
+    }
 
     if(url === '/user' && method === 'GET'){
         res.statusCode = 200;
@@ -53,7 +90,7 @@ const requestHandler = (req, res) =>{
         res.write('<div style="position: absolute; top: 10px; right: 10px; display: flex; gap: 10px;">');
         res.write('<a href="/info"><button>About</button></a>');
         res.write('<a href="/info"><button>Region</button></a>');
-        res.write('<a href="/info"><button>Headlines</button></a>');
+        res.write('<a href="/headlines"><button>Headlines</button></a>');
         res.write('<a href="/info"><button>Sports</button></a>');
         res.write('</div>');
         res.write('</body>');
