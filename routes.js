@@ -6,7 +6,7 @@ const requestHandler = (req, res) =>{
     if(url === '/xx'){
         res.write('<html>');                        //res.write to send response/show in our page when the page is visited
         res.write('<head><title>Homepage</title>');
-        res.write('<link rel="stylesheet" href="/style.css">');
+        res.write('<link rel="stylesheet" href="/buttonStyle.css">');
         res.write('</head>');
         res.write('<body>');
         res.write(`
@@ -155,7 +155,7 @@ const requestHandler = (req, res) =>{
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.write('<html>');
         res.write('<head><title>Headlines</title>');
-        res.write('<link rel="stylesheet" href="/style.css">');
+        res.write('<link rel="stylesheet" href="/buttonStyle.css">');
         res.write('</head>');
         res.write('<body>');
         res.write(`
@@ -238,7 +238,7 @@ const requestHandler = (req, res) =>{
     }
 
     if (url.startsWith('/get-headlines') && method === 'GET') {
-        const query = new URL(req.url, `http://${req.headers.host}`).searchParams;
+        const query = new URL(url, `http://${req.headers.host}`).searchParams;
         const category = query.get('category') || 'business';
 
         const apiKey = process.env.NEWS_API_KEY;
@@ -264,7 +264,7 @@ const requestHandler = (req, res) =>{
         res.setHeader('Content-Type', 'text/html');
         res.write('<html>');                        //res.write to send response/show in our page when the page is visited
         res.write('<head>');
-        res.write('<link rel="stylesheet" href="/style.css">');
+        res.write('<link rel="stylesheet" href="/buttonStyle.css">');
         res.write('</head>');
         res.write(`
                     <style>
