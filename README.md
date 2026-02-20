@@ -2,7 +2,7 @@
 
 ## Description
 A full-stack news blog web application built using Node.js that fetches and displays real-time news headlines from NewsAPI. 
-The project demonstrates backend routing, API integration, dynamic frontend rendering, and static file serving without using Express.js.
+The project demonstrates backend routing, API integration, dynamic frontend rendering.
 
 Users can select news categories such as Business, Sports, Technology, Health, and Entertainment, and view updated headlines dynamically through the browser.
 
