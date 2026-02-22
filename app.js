@@ -10,8 +10,8 @@ const server = http.createServer((req, res) => {    //call back function req kee
     const method = req.method;
 
     // Serve CSS
-    if (url === '/buttonStyle.css') {
-        const filePath = path.join(__dirname, 'buttonStyle.css');
+    if (url === '/style.css') {
+        const filePath = path.join(__dirname, 'style.css');
         fs.readFile(filePath, (err, data) => {
             if (err) {
                 res.writeHead(500);
